@@ -1,4 +1,4 @@
-# React Ultimate Starter Template
+# React Ultimate - FINAL PROJECT
 Template này được sử dụng cho series React Ultimate (Vite) của tác giả Hỏi Dân IT (Eric)
 
 ### Môi trường chạy dự án: Node.js v20.14.0
