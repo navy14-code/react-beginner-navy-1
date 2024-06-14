@@ -5,10 +5,7 @@ import { useEffect, useState } from 'react';
 
 const UserTable = () => {
 
-    const [dataUsers, setDataUsers] = useState([
-        { _id: "eric", fullName: 25, email: "hn" },
-        { _id: "hoidanit", fullName: 25, email: "hcm" }
-    ]);
+    const [dataUsers, setDataUsers] = useState([]);
 
     //empty array => run once
     useEffect(() => {
