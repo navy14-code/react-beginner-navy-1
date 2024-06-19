@@ -27,7 +27,6 @@ const UserPage = () => {
 
     }
 
-    console.log(">>> check pageSize: ", pageSize)
     // lift-up state 
     return (
         <div style={{ padding: "20px" }}>
