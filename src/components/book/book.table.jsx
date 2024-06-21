@@ -1,7 +1,7 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Popconfirm, Table } from "antd";
+import { Button, Popconfirm, Table, notification } from "antd";
 import { useEffect, useState } from "react";
-import { fetchAllBookAPI } from "../../services/api.service";
+import { deleteBookAPI, fetchAllBookAPI } from "../../services/api.service";
 import BookDetail from "./book.detail";
 import CreateBookControl from "./create.book.control";
 import CreateBookUncontrol from "./create.book.uncontrol";
@@ -40,7 +40,20 @@ const BookTable = () => {
 
 
     const handleDeleteBook = async (id) => {
+        const res = await deleteBookAPI(id);
+        if (res.data) {
+            notification.success({
+                message: "Delete book",
+                description: "Xóa book thành công"
+            })
+            await loadBook();
 
+        } else {
+            notification.error({
+                message: "Error delete book",
+                description: JSON.stringify(res.message)
+            })
+        }
     }
 
     const onChange = (pagination, filters, sorter, extra) => {
@@ -127,7 +140,6 @@ const BookTable = () => {
                         okText="Yes"
                         cancelText="No"
                         placement="left"
-
                     >
                         <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
                     </Popconfirm>
