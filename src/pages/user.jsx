@@ -12,7 +12,7 @@ const UserPage = () => {
 
     //empty array => run once
     // not empty => next value !== prev value
-    useEffect(() => {
+    useEffect(() => { //side effect
         loadUser();
     }, [current, pageSize]); //[] + condition
 
