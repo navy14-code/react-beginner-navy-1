@@ -6,6 +6,7 @@ import BookDetail from "./book.detail";
 import CreateBookControl from "./create.book.control";
 import CreateBookUncontrol from "./create.book.uncontrol";
 import UpdateBookControl from "./update.book.control";
+import UpdateBookUncontrol from "./update.book.uncontrol";
 
 const BookTable = () => {
 
@@ -180,13 +181,22 @@ const BookTable = () => {
                 loadBook={loadBook}
             />
 
-            <UpdateBookControl
+            {/* <UpdateBookControl
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                loadBook={loadBook}
+            /> */}
+
+            <UpdateBookUncontrol
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
                 isModalUpdateOpen={isModalUpdateOpen}
                 setIsModalUpdateOpen={setIsModalUpdateOpen}
                 loadBook={loadBook}
             />
+
         </>
     )
 }
