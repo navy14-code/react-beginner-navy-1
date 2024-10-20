@@ -3,7 +3,7 @@ import './footer.css';
 const Footer = () => {
     return (
         <div className="footer">
-            <p>React Vite - @hoidanit</p>
+            <p>React Vite - @namdeptraivl</p>
         </div>
     )
 }
