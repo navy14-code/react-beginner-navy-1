@@ -24,9 +24,7 @@ const handleOnChange = (name) => {
             style={{cursor :`pointer`}}
             onClick={handleClick}>
             Add</button>
-        <div>
-            my text input : {valueinput}
-        </div>
+
         </div>
         </>
        
