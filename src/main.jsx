@@ -9,22 +9,32 @@ import RegisterPage from './pages/register.jsx';
 import './styles/global.css';
 import { AuthWrapper } from './components/context/auth.context.jsx';
 import UserPage from './pages/user.jsx';
-import ProductsPage from './pages/products.jsx';
+import ProductsPage from './pages/book.jsx';
 import { Children } from 'react';
+import TodoApp from './components/todo/TodoApp.jsx';
+import ErrorPage from './pages/error.jsx';
+import BookPage from './pages/book.jsx';
+
+
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children : [
+      {
+        index: true,
+        element: <TodoApp/>
+      },
       {
         path: "/user",
         element: <UserPage />
       },
       {
-        path: "/products",
-        element: <ProductsPage />
+        path: "/book",
+        element: <BookPage />
       },
     ]
   },

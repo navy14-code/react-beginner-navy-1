@@ -1,12 +1,8 @@
-import BookTable from "../components/book/book.table";
 
 const BookPage = () => {
-    return (
-        <div style={{ padding: "20px" }}>
-            <BookTable />
-        </div>
+    return(
+        <div>Book Page</div>
+    );
 
-    )
 }
-
-export default BookPage;
+export default BookPage
