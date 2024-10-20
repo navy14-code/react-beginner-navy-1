@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { Spin } from 'antd';
 const App = () => {
   const [todoList,setTodoList] = useState([
-  //  { id :1, name:"Name"},
-  //  { id :2, name:"Age"},
+
   ])
   const addNewTodo = (name) =>{
     const newTodo ={
@@ -15,8 +14,15 @@ const App = () => {
     }
     setTodoList([...todoList, newTodo])
   }
+  //random id
   const randomIntFromInterval = (min, max) => { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  //delete
+  const DeleteById =(id)=>{
+    const newTodo = todoList.filter(item => item.id !== id)
+    setTodoList(newTodo);
+
   }
   return (
     <>
@@ -24,17 +30,15 @@ const App = () => {
         <div className="todo-title">Todo List</div>
       <TodoNew
       addNewTodo={addNewTodo}/>
-{todoList.length > 0 &&
-<>
+{todoList.length > 0 ?
        <TodoData
-       todoList ={todoList} />
-       </>
-       }
-{todoList.length === 0 &&
+       todoList ={todoList}
+       DeleteById={DeleteById} />
+:
        <div className='todo-image'>
         <img src={Spin} className='logo' />
        </div>
-        }
+}
       </div>
     </>
     
