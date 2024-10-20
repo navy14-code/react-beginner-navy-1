@@ -10,28 +10,27 @@ import './styles/global.css';
 import { AuthWrapper } from './components/context/auth.context.jsx';
 import UserPage from './pages/user.jsx';
 import ProductsPage from './pages/products.jsx';
+import { Children } from 'react';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    children : [
+      {
+        path: "/user",
+        element: <UserPage />
+      },
+      {
+        path: "/products",
+        element: <ProductsPage />
+      },
+    ]
   },
   {
     path: "/login",
     element: <LoginPage />
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />
-  },
-  {
-    path: "/user",
-    element: <UserPage />
-  },
-  {
-    path: "/products",
-    element: <ProductsPage />
   },
   {
     path: "/register",

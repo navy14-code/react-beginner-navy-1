@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Spin } from 'antd';
 import Header from './components/layout/header';
 import Footer from './components/layout/footer';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
   const [todoList,setTodoList] = useState([
@@ -30,6 +31,7 @@ const App = () => {
   return (
     <>
     <Header/>
+    
    
       <div className="todo-container">
         <div className="todo-title">React by Namdeptrai</div>
@@ -45,6 +47,7 @@ const App = () => {
        </div>
 }
       </div>
+      <Outlet/>
       <Footer/>
     </>
     
