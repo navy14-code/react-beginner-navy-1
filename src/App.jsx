@@ -4,13 +4,11 @@ import TodoData from './components/todo/TodoData';
 import { useState } from 'react';
 const App = () => {
   const [todoList,setTodoList] = useState([
-   { id :1, name:"Name"},
-   { id :2, name:"Age"},
+  //  { id :1, name:"Name"},
+  //  { id :2, name:"Age"},
   ])
   const addNewTodo = (name) =>{
     const newTodo ={
-      // id:4,
-
       id :randomIntFromInterval(1, 100), 
       name: name
     }

@@ -19,9 +19,7 @@ const TodoData = (props) => {
                     </>
                 )
             })}
-            <div>
-            {JSON.stringify(props.todoList)}
-        </div>
+
         </div>
         
      
