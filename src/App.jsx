@@ -1,48 +1,35 @@
-
-import Header from './components/layout/header';
-import Footer from './components/layout/footer';
-import { Outlet } from 'react-router-dom';
-import { getAccountAPI } from './services/api.service';
-import { useContext, useEffect } from 'react';
-import { AuthContext } from './components/context/auth.context';
-import { Spin } from 'antd';
-
-
+import './components/todo/todo.css';
+import TodoNew from './components/todo/TodoNew';
+import TodoData from './components/todo/TodoData';
+import { useState } from 'react';
 const App = () => {
-  const { setUser, isAppLoading, setIsAppLoading } = useContext(AuthContext);
+  const [todoList,setTodoList] = useState([
+   { id :1, name:"Name"},
+   { id :2, name:"Age"},
+  ])
+  const addNewTodo = (name) =>{
+    const newTodo ={
+      // id:4,
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, [])
-
-  const fetchUserInfo = async () => {
-    const res = await getAccountAPI();
-    if (res.data) {
-      //success
-      setUser(res.data.user)
+      id :randomIntFromInterval(1, 100), 
+      name: name
     }
-    setIsAppLoading(false);
+    setTodoList([...todoList, newTodo])
   }
-
+  const randomIntFromInterval = (min, max) => { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
   return (
     <>
-      {isAppLoading === true ?
-        <div style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}>
-          <Spin />
-        </div>
-        :
-        <>
-          <Header />
-          <Outlet />
-          <Footer />
-        </>
-      }
+      <div className="todo-container">
+        <div className="todo-title">Todo List</div>
+      <TodoNew
+      addNewTodo={addNewTodo}/>
+       <TodoData
+       todoList ={todoList} />
+      </div>
     </>
+    
   )
 }
 

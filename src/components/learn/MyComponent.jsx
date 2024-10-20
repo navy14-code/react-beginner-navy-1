@@ -26,4 +26,4 @@ const MyComponent = () => {
     );
 }
 
-export default MyComponent;
+export  {MyComponent};
