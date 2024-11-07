@@ -1,23 +1,34 @@
 import React, { useState } from 'react';
-import { Button, Input } from 'antd';
+import { Button, Input, message, notification } from 'antd';
 import axios from 'axios';
+import { createUserAPI } from '../../services/api.service';
 const UserFrom = () =>  {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassWord] = useState("");
     const [phone, setPhone] = useState("");
 
-    const handleClickBtn =()=>{
-        // console.log('check state',{fullName,email,passWord,address})
-        const url_backend = 'http://localhost:8080/api/v1/user';
-        const data ={
-            fullName: fullName,
-            email: email,
-            password: password,
-            phone: phone
+    const handleClickBtn = async()=>{
+        // try {
+        const res = await createUserAPI(fullName,email,password,phone)
+        // debugger
+        if(res.data){
+            notification.success({
+            message: `Create user`,
+            description: `Create success`
+        })
+        console.log('check res',res.data.data)
         }
-        axios.post(url_backend, data)
-        // alert("Them thanh cong")
+        else{
+            notification.error({
+                message:`Fail`,
+                description: JSON.stringify(res.message)
+            })
+        }
+    
+        // } catch (error) {
+            
+        // }
     }
 
     return(
