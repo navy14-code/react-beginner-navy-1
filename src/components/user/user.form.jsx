@@ -4,12 +4,12 @@ import axios from 'axios';
 import { createUserAPI } from '../../services/api.service';
 import Password from 'antd/es/input/Password';
 const UserFrom = (props) =>  {
+    const {loadUser} = props;
+
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
-
-    const {loadUser} = props;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 

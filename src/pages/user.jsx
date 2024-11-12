@@ -18,7 +18,9 @@ const UserPage = () =>{
         <>
         <div style={{padding: "20px"}}>
         <UserFrom loadUser = {loadUser}/>
-        <UserTable dataUsers = {dataUsers}/>
+        <UserTable 
+        loadUser = {loadUser}
+        dataUsers = {dataUsers}/>
         </div>
         </>
     );
