@@ -4,8 +4,7 @@ import UserFrom from "../components/user/user.form";
 import { useEffect, useState } from 'react';
 import { fetchAllUserAPI } from '../services/api.service';
 const UserPage = () =>{
-    const[dataUsers,setDataUsers]= useState([
-    ]);
+    const[dataUsers,setDataUsers]= useState([]);
     useEffect(()=>{
       loadUser(); 
     }, [setDataUsers]);
@@ -15,14 +14,17 @@ const UserPage = () =>{
         setDataUsers(res.data)
       } 
     return(
-        <>
+      <>
         <div style={{padding: "20px"}}>
-        <UserFrom loadUser = {loadUser}/>
-        <UserTable 
-        loadUser = {loadUser}
-        dataUsers = {dataUsers}/>
+          <UserFrom 
+            loadUser = {loadUser}
+          />
+          <UserTable 
+            loadUser = {loadUser}
+            dataUsers = {dataUsers}
+          />
         </div>
-        </>
+      </>
     );
 
 }
