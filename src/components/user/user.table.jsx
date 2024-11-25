@@ -4,6 +4,7 @@ import { useState } from 'react';
 import UpdateUsersModel from './update.user.modal';
 import ViewUserDetail from './view.user.detail';
 import { deleteUserAPI } from '../../services/api.service';
+import { render } from 'nprogress';
 
 const UserTable = (props) => {
   const { dataUsers, loadUser } = props
@@ -36,6 +37,17 @@ const UserTable = (props) => {
   }
 
   const columns = [
+    {
+      title: "STT",
+      dataIndex: '_id',
+      key: 'id',
+      render: (_, record, index) => {
+        console.log('Check index', index)
+        return (
+          <>{index + 1}</>
+        )
+      }
+    },
     {
       title: 'Id',
       dataIndex: '_id',
