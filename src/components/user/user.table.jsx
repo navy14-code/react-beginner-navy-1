@@ -7,7 +7,7 @@ import { deleteUserAPI } from '../../services/api.service';
 import { render } from 'nprogress';
 
 const UserTable = (props) => {
-  const { dataUsers, loadUser } = props
+  const { dataUsers, loadUser, current, pageSize, total, setCurrent, setPageSize } = props
 
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
@@ -42,7 +42,7 @@ const UserTable = (props) => {
       dataIndex: '_id',
       key: 'id',
       render: (_, record, index) => {
-        console.log('Check index', index)
+
         return (
           <>{index + 1}</>
         )
@@ -106,12 +106,32 @@ const UserTable = (props) => {
 
   ];
 
+  const onChange = (pagination, filters, sorter, extra) => {
+    // setCurrent();
+    // setPageSize();
+    if (pagination && pagination.current) {
+      if (pagination.current !== +current) {
+        setCurrent(+pagination.current) // '+' ep kieu string =>> int
+      }
+    }
+    console.log('check', { pagination, filters, sorter, extra })
+
+  };
+
   return (
     <>
       <Table
         columns={columns}
         dataSource={dataUsers}
         rowKey='_id'
+        pagination={{
+          current: current,
+          pageSize: pageSize,
+          showSizeChanger: true,
+          total: total,
+          showTotal: (total, range) => { return (<div>{range[0]}-{range[1]} up {total} rows</div>) }
+        }}
+        onChange={onChange}
       />
       <UpdateUsersModel
         isModalUpdateOpen={isModalUpdateOpen}

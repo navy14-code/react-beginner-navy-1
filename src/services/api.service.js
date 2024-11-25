@@ -40,8 +40,8 @@ const updateAvatarUserAPI = (avatar, _id, fullName, phone) => {
     }
     return axios.put(url_backend, data);
 }
-const fetchAllUserAPI = () => {
-    const url_backend = '/api/v1/user?current=1&pageSize=1';
+const fetchAllUserAPI = (current, pageSize) => {
+    const url_backend = `/api/v1/user?current=${current}&pageSize=${pageSize}`;
     return axios.get(url_backend);
 
 }
