@@ -1,4 +1,3 @@
-import { Header } from "antd/es/layout/layout";
 import UserTable from "../components/user/user.table";
 import UserFrom from "../components/user/user.form";
 import { useEffect, useState } from 'react';
@@ -26,8 +25,6 @@ const UserPage = () => {
     }
 
   }
-
-  console.log('Check page ', pageSize)
 
   return (
     <>
