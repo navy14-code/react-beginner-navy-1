@@ -14,7 +14,7 @@ const UserPage = () => {
 
   useEffect(() => {
     loadUser();
-  }, [current]); //[] + dieu kien
+  }, [current, pageSize]); //[tham so ] = [] + dieu kien
 
   const loadUser = async () => {
     const res = await fetchAllUserAPI(current, pageSize);
@@ -27,7 +27,7 @@ const UserPage = () => {
 
   }
 
-  console.log('Check', current)
+  console.log('Check page ', pageSize)
 
   return (
     <>
