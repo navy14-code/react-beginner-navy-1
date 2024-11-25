@@ -12,11 +12,13 @@ const createUserAPI = (fullName, email, password, phone) => {
     return axios.post(url_backend, data);
 
 }
+
 const deleteUserAPI = (id) => {
     const url_backend = `/api/v1/user/${id}`;
     return axios.delete(url_backend);
 
 }
+
 const updateUserAPI = (_id, fullName, phone) => {
     const url_backend = '/api/v1/user';
     const data = {
@@ -26,12 +28,42 @@ const updateUserAPI = (_id, fullName, phone) => {
     }
     return axios.put(url_backend, data);
 }
+
+const updateAvatarUserAPI = (avatar, _id, fullName, phone) => {
+    const url_backend = '/api/v1/user';
+    const data = {
+        avatar: avatar,
+        _id: _id,
+        fullName: fullName,
+        phone: phone
+
+    }
+    return axios.put(url_backend, data);
+}
 const fetchAllUserAPI = () => {
     const url_backend = '/api/v1/user';
     return axios.get(url_backend);
 
 }
+const handleUploadFile = (file, folder) => {
+    const url_backend = '/api/v1/file/upload';
+    let config = {
+        headers: {
+            'upload-type': folder,
+            "Content-Type": "multipart/form-data"
+        }
+    }
+    const bodyFormData = new FormData();
+    bodyFormData.append('fileImg', file)
+    return axios.post(url_backend, bodyFormData, config);
+
+}
 
 export {
-    createUserAPI, updateUserAPI, fetchAllUserAPI, deleteUserAPI
+    createUserAPI,
+    updateUserAPI,
+    fetchAllUserAPI,
+    deleteUserAPI,
+    handleUploadFile,
+    updateAvatarUserAPI
 }
