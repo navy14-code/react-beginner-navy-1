@@ -1,4 +1,4 @@
-import { Button, Form, Input, notification } from "antd";
+import { Button, Col, Form, Input, notification, Row } from "antd";
 import { registerUserAPI } from "../services/api.service";
 import { useNavigate } from "react-router-dom";
 
@@ -40,90 +40,100 @@ const RegisterPage = () => {
                 onFinish={onFinish}
             // onFinishFailed={onFinishFailed}
             >
-                <div style={{ margin: '50px' }}>
-                    <Form.Item
-                        label="FullName"
-                        name="fullName"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Không được để trống fullname!',
-                            },
-                        ]}
-                    >
-                        <Input
-                            placeholder="Vui lòng điền họ và tên"
-                        />
-                    </Form.Item>
+                <div style={{ margin: '10px' }}>
+                    <Row justify={'center'}>
+                        <Col xs={24} md={8} >
+                            <Form.Item
+                                label="FullName"
+                                name="fullName"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Không được để trống fullname!',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    placeholder="Vui lòng điền họ và tên"
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row justify={'center'}>
+                        <Col xs={24} md={8}>
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Không được để trống email!',
+                                    },
+                                    {
 
-                    <Form.Item
-                        label="Email"
-                        name="email"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Không được để trống email!',
-                            },
-                            {
+                                        type: "email",
+                                        message: 'Email phải đúng định dạng'
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    placeholder="Vui lòng điền email"
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row justify={'center'}>
+                        <Col xs={24} md={8}>
+                            <Form.Item
+                                label="Password"
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Không được để trống password!',
+                                    },
+                                    {
+                                        pattern: /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9])(?=\S*?[!@#$%^&*(),.?":{}|<>]).{8,})$/,
+                                        message: 'Password phải có ít nhất 8 ký tự, bao gồm chữ thường, chữ hoa, số và ký tự đặc biệt.',
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    placeholder="Vui lòng điền password"
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row justify={'center'}>
+                        <Col xs={24} md={8}>
+                            <Form.Item
+                                label="Phone"
+                                name="phone"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Không được để trống phone!',
+                                    },
+                                    {
+                                        pattern: new RegExp(/^\d+$/), //cach 1
+                                        // pattern: /^[0-9]+$/, /cach 2
+                                        message: 'Phone không đúng định dạng',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    placeholder="Vui lòng điền sđt"
+                                    maxLength={10}
+                                />
+                            </Form.Item>
+                            <Button
+                                onClick={() => { form.submit() }}
+                                type='primary' >Sign in
+                            </Button>
+                        </Col>
+                    </Row>
 
-                                type: "email",
-                                message: 'Email phải đúng định dạng'
-                            },
-                        ]}
-                    >
-                        <Input
-                            placeholder="Vui lòng điền email"
-                        />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Không được để trống password!',
-                            },
-                            {
-                                pattern: /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9])(?=\S*?[!@#$%^&*(),.?":{}|<>]).{8,})$/,
-                                message: 'Password phải có ít nhất 8 ký tự, bao gồm chữ thường, chữ hoa, số và ký tự đặc biệt.',
-                            },
-                        ]}
-                    >
-                        <Input.Password
-                            placeholder="Vui lòng điền password"
-                        />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Phone"
-                        name="phone"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Không được để trống phone!',
-                            },
-                            {
-                                pattern: new RegExp(/^\d+$/), //cach 1
-                                // pattern: /^[0-9]+$/, /cach 2
-                                message: 'Phone không đúng định dạng',
-                            },
-                        ]}
-                    >
-                        <Input
-                            placeholder="Vui lòng điền sđt"
-                            maxLength={10}
-                        />
-                    </Form.Item>
-
-                    <Button
-                        onClick={() => { form.submit() }}
-                        type='primary'
-                    >
-                        Create
-                    </Button>
                 </div>
-
             </Form>
         </>
     );
