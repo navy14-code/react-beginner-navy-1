@@ -77,17 +77,16 @@ const ViewUserDetail = (props) => {
         >
             {dataDetail ?
                 <>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <div
                             style={{
-                                flex: '1',
                                 textAlign: 'center',
                                 marginTop: '10px',
-                                height: '100%', width: '100%',
+                                height: '200px', width: '200px',
                                 border: '2px solid #ccc'
                             }}>
                             <img
-                                style={{ height: '100%', width: '100%', objectFit: 'contain' }}
+                                style={{ height: '200px', width: '200px', objectFit: 'contain' }}
                                 src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${dataDetail.avatar}`} />
                         </div>
                         <div style={{ flex: '2', paddingLeft: '50px' }}>

@@ -6,6 +6,7 @@ import ViewUserDetail from './view.user.detail';
 import { deleteUserAPI } from '../../services/api.service';
 import { render } from 'nprogress';
 
+
 const UserTable = (props) => {
   const { dataUsers, loadUser, current, pageSize, total, setCurrent, setPageSize } = props
 
@@ -16,6 +17,8 @@ const UserTable = (props) => {
   const [dataDetail, setDataDetail] = useState(null);
 
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+
 
 
   const handleDeleteUser = async (id) => {
