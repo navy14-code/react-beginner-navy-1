@@ -115,7 +115,10 @@ const RegisterPage = () => {
                                 },
                             ]}
                         >
-                            <Input placeholder="Vui lòng điền sđt" maxLength={11} />
+                            <Input
+                                placeholder="Vui lòng điền sđt"
+                                maxLength={11}
+                                onKeyDown={(event) => { if (event.key === "Enter") form.submit() }} />
                         </Form.Item>
                         <div style={{ textAlign: 'center' }}>
                             <Button

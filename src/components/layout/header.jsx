@@ -11,10 +11,6 @@ const Header = () => {
 
     const { user } = useContext(AuthContext)
 
-    console.log('check ', user)
-
-
-
     const onClick = (e) => {
         console.log('click ', e);
         setCurrent(e.key);
@@ -53,7 +49,6 @@ const Header = () => {
                 },
             ],
         }] : [])
-
     ];
     return (
         <>

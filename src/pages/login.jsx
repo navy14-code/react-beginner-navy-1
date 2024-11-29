@@ -81,22 +81,21 @@ const LoginPage = () => {
                                     required: true,
                                     message: 'Không được để trống password!',
                                 },
-                                // {
-                                //     pattern: /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9])(?=\S*?[!@#$%^&*(),.?":{}|<>]).{8,})$/,
-                                //     message: 'Password phải có ít nhất 8 ký tự, bao gồm chữ thường, chữ hoa, số và ký tự đặc biệt.',
-                                // },
                             ]}
                         >
                             <Input.Password
                                 prefix={<LockOutlined />}
                                 placeholder="Nhập password"
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter") form.submit()
+                                }}
                             />
                         </Form.Item>
                         <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
                             <Button
                                 loading={completed}
                                 onClick={() => { form.submit() }}
-                                type='primary' >Log in
+                                type='primary'>Log in
                             </Button>
                             <Link to="/">Go to home page<ArrowRightOutlined /></Link>
                         </div>

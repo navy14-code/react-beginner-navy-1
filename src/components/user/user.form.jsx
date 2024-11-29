@@ -54,13 +54,16 @@ const UserFrom = (props) => {
                                 <span>Fullname</span>
                                 <Input
                                     value={fullName}
-                                    onChange={(event) => { setFullName(event.target.value) }} />
+                                    onChange={(event) => { setFullName(event.target.value) }}
+                                    onKeyDown={(event) => { if (event.key === "Enter") handleSubmitBtn() }}
+                                />
                             </div>
                             <div>
                                 <span>Email</span>
                                 <Input
                                     value={email}
                                     onChange={(event) => { setEmail(event.target.value) }}
+                                    onKeyDown={(event) => { if (event.key === "Enter") handleSubmitBtn() }}
                                 />
                             </div>
                             <div>
@@ -69,6 +72,7 @@ const UserFrom = (props) => {
                                     value={password}
                                     onChange={(event) => { setPassword(event.target.value) }}
                                     visibilityToggle={true}
+                                    onKeyDown={(event) => { if (event.key === "Enter") handleSubmitBtn() }}
                                 />
                             </div>
                             <div>
@@ -76,6 +80,7 @@ const UserFrom = (props) => {
                                 <Input
                                     value={phone}
                                     onChange={(event) => { setPhone(event.target.value) }}
+                                    onKeyDown={(event) => { if (event.key === "Enter") handleSubmitBtn() }}
                                 />
                             </div>
                         </div>
