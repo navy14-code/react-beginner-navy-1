@@ -35,23 +35,24 @@ const Header = () => {
             key: 'books',
             icon: <BookOutlined />
         },
-        {
-            label: 'Settings',
-            key: 'settings',
-            icon: <SettingOutlined />,
+        ...(!user.id ? [{
+            label: <Link to={'/login'}>Login</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+
+        }] : []),
+        ...(user.id ? [{
+            label: `Welcome ${user.fullName}`,
+            key: 'hello',
+            icon: <UserOutlined />,
             children: [
-                {
-                    key: 'login',
-                    label: <Link to={'/login'}>Login</Link>,
-                    icon: <LoginOutlined />,
-                },
                 {
                     key: 'logout',
                     label: <Link to={'/'}>Logout</Link>,
                     icon: <LogoutOutlined />,
                 },
             ],
-        },
+        }] : [])
 
     ];
     return (
