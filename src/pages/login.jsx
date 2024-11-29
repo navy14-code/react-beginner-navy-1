@@ -2,12 +2,15 @@ import { Link, useNavigate, useRouteError } from "react-router-dom";
 import { Button, Col, Divider, Flex, Form, Input, message, notification, Row } from 'antd';
 import { ArrowRightOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { loginAPI } from "../services/api.service";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../components/context/auth.context";
 
 const LoginPage = () => {
     const [form] = Form.useForm();
 
     const navigate = useNavigate();
+
+    const { setUser } = useContext(AuthContext)
 
     const [completed, setCompleted] = useState(false);
 
@@ -19,6 +22,9 @@ const LoginPage = () => {
         )
         if (res.data) {
             message.success("Login success")
+            localStorage.setItem("access_token", res.data.access_token);
+            setUser(res.data.user);
+
             navigate('/user');
         }
         else {
@@ -90,7 +96,7 @@ const LoginPage = () => {
                             <Button
                                 loading={completed}
                                 onClick={() => { form.submit() }}
-                                type='primary' >Sign in
+                                type='primary' >Log in
                             </Button>
                             <Link to="/">Go to home page<ArrowRightOutlined /></Link>
                         </div>
