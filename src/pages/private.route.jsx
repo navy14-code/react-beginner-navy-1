@@ -14,14 +14,16 @@ const PrivateRoute = (props) => {
     }
 
     return (
+
         <>
+            {/* <Navigate to='/login' replace /> */}
             <Result
                 status="403"
                 title="Unauthorize!"
                 subTitle={"Bạn cần đăng nhập để truy cập"}
                 extra={<Button type="primary">
-                    <Link to="/login">
-                        <span>Go to login</span>
+                    <Link to="/">
+                        <span>Back to Homepage</span>
                     </Link>
                 </Button>}
             />
