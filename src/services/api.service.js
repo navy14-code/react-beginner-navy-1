@@ -80,6 +80,11 @@ const loginAPI = (email, password) => {
     }
     return axios.post(url_backend, data);
 }
+const getAccountAPI = () => {
+    const url_backend = 'api/v1/auth/account';
+    return axios.get(url_backend);
+}
+
 
 export {
     createUserAPI,
@@ -89,5 +94,6 @@ export {
     handleUploadFile,
     updateAvatarUserAPI,
     registerUserAPI,
-    loginAPI
+    loginAPI,
+    getAccountAPI
 }
