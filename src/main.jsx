@@ -14,6 +14,7 @@ import { Children } from 'react';
 import TodoApp from './components/todo/TodoApp.jsx';
 import ErrorPage from './pages/error.jsx';
 import BookPage from './pages/book.jsx';
+import PrivateRoute from './pages/private.route.jsx';
 
 
 
@@ -34,11 +35,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/user",
-        element: <UserPage />
+        element: (
+          <PrivateRoute>
+            <UserPage />
+          </PrivateRoute>
+        )
       },
       {
         path: "/book",
-        element: <BookPage />
+        element: (
+          <PrivateRoute>
+            <BookPage />
+          </PrivateRoute>
+        )
+
       },
       {
         path: "/register",
