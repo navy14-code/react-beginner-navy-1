@@ -14,7 +14,6 @@ const Header = () => {
     const navigate = useNavigate();
 
     const onClick = (e) => {
-        console.log('click ', e);
         setCurrent(e.key);
     };
     const handleLogout = async () => {

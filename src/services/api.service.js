@@ -12,14 +12,11 @@ const createUserAPI = (fullName, email, password, phone) => {
     return axios.post(url_backend, data);
 
 }
-
-
 const deleteUserAPI = (id) => {
     const url_backend = `/api/v1/user/${id}`;
     return axios.delete(url_backend);
 
 }
-
 const updateUserAPI = (_id, fullName, phone) => {
     const url_backend = '/api/v1/user';
     const data = {
@@ -29,7 +26,6 @@ const updateUserAPI = (_id, fullName, phone) => {
     }
     return axios.put(url_backend, data);
 }
-
 const updateAvatarUserAPI = (avatar, _id, fullName, phone) => {
     const url_backend = '/api/v1/user';
     const data = {
@@ -44,7 +40,6 @@ const updateAvatarUserAPI = (avatar, _id, fullName, phone) => {
 const fetchAllUserAPI = (current, pageSize) => {
     const url_backend = `/api/v1/user?current=${current}&pageSize=${pageSize}`;
     return axios.get(url_backend);
-
 }
 const handleUploadFile = (file, folder) => {
     const url_backend = '/api/v1/file/upload';
@@ -59,7 +54,6 @@ const handleUploadFile = (file, folder) => {
     return axios.post(url_backend, bodyFormData, config);
 
 }
-
 const registerUserAPI = (fullName, email, password, phone) => {
     const url_backend = '/api/v1/user/register';
     const data = {
@@ -76,7 +70,6 @@ const loginAPI = (email, password) => {
         username: email,
         password: password,
         delay: 1
-
     }
     return axios.post(url_backend, data);
 }
@@ -88,17 +81,42 @@ const logoutAPI = () => {
     const url_backend = 'api/v1/auth/logout';
     return axios.post(url_backend);
 }
+const fetchAllBookAPI = (current, pageSize) => {
+    const url_backend = `/api/v1/book?current=${current}&pageSize=${pageSize}`;
+    return axios.get(url_backend);
+}
+const createBookAPI = (thumbnail, mainText, author, price, quantity, category) => {
+    const url_backend = '/api/v1/book';
+    const data = {
+        thumbnail: thumbnail,
+        mainText: mainText,
+        author: author,
+        price: price,
+        quantity: quantity,
+        category: category
+    }
+    return axios.post(url_backend, data);
+
+}
+// const updateBookAPI = (id, Thumbnail, mainText, author, price, quantity, category) => {
+//     const url_backend = '/api/v1/book';
+//     const data = {
+//         id: id,
+//         Thumbnail: Thumbnail,
+//         mainText: mainText,
+//         author: author,
+//         price: price,
+//         quantity: quantity,
+//         category: category
+
+//     }
+//     return axios.post(url_backend, data);
+// }
 
 
 export {
-    createUserAPI,
-    updateUserAPI,
-    fetchAllUserAPI,
-    deleteUserAPI,
-    handleUploadFile,
-    updateAvatarUserAPI,
-    registerUserAPI,
-    loginAPI,
-    getAccountAPI,
-    logoutAPI
+    createUserAPI, updateUserAPI, fetchAllUserAPI, deleteUserAPI,
+    handleUploadFile, updateAvatarUserAPI, registerUserAPI,
+    loginAPI, getAccountAPI, logoutAPI,
+    fetchAllBookAPI, createBookAPI
 }

@@ -27,7 +27,7 @@ const ViewUserDetail = (props) => {
             setSelectedFile(file);
             setPreview(URL.createObjectURL(file));
         }
-        console.log('check file', preview)
+        // console.log('check file', preview)
     }
 
     const handleUpdateUserAvatar = async () => {

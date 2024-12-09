@@ -1,11 +1,9 @@
-import { Input, Modal, InputNumber, Select, notification } from "antd"
-import { useState } from "react";
+import { Button, Input, InputNumber, Modal, notification, Select } from "antd"
 import { createBookAPI, handleUploadFile } from "../../services/api.service";
+import { useState } from "react";
 
 const CreateBookControl = (props) => {
-    const {
-        isCreateOpen, setIsCreateOpen, loadBook
-    } = props;
+    const { loadBook, isCreateOpen, setIsCreateOpen } = props;
 
     const [mainText, setMainText] = useState("");
     const [author, setAuthor] = useState("");
@@ -16,8 +14,17 @@ const CreateBookControl = (props) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState(null);
 
+    const resetAndCloseModal = () => {
+        setIsCreateOpen(false);
+        setMainText("");
+        setAuthor("");
+        setPrice("");
+        setQuantity("");
+        setCategory("");
+        setSelectedFile(null);
+        setPreview(null);
+    }
     const handleSubmitBtn = async () => {
-
         if (!selectedFile) {
             notification.error({
                 message: "Error create book",
@@ -59,42 +66,28 @@ const CreateBookControl = (props) => {
         }
     }
 
-    const resetAndCloseModal = () => {
-        setMainText("");
-        setAuthor("");
-        setPrice("");
-        setQuantity("");
-        setCategory("");
-        setSelectedFile(null);
-        setPreview(null);
-        setIsCreateOpen(false);
-    }
-
     const handleOnChangeFile = (event) => {
         if (!event.target.files || event.target.files.length === 0) {
             setSelectedFile(null);
             setPreview(null);
             return;
         }
-
-        // I've kept this example simple by using the first image instead of multiple
-        const file = event.target.files[0];
+        const file = event.target.files[0]
         if (file) {
             setSelectedFile(file);
-            setPreview(URL.createObjectURL(file))
+            setPreview(URL.createObjectURL(file));
         }
+        // console.log('check file', preview)
     }
-
     return (
-        <Modal
-            title="Create Book"
-            open={isCreateOpen}
-            onOk={() => handleSubmitBtn()}
-            onCancel={() => resetAndCloseModal()}
-            maskClosable={false}
-            okText={"CREATE"}
-        >
-            <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+        <>
+            <Modal title="Create Book"
+                open={isCreateOpen}
+                onOk={() => { handleSubmitBtn() }}
+                onCancel={() => { resetAndCloseModal() }}
+                maskClosable={false}
+                okText={"CREATE"}
+            >
                 <div>
                     <span>Tiêu đề</span>
                     <Input
@@ -110,12 +103,13 @@ const CreateBookControl = (props) => {
                     />
                 </div>
                 <div>
-                    <div>Giá tiền</div>
+                    <span>Giá tiền</span>
                     <InputNumber
+                        value={price}
                         style={{ width: "100%" }}
                         addonAfter={' đ'}
-                        value={price}
                         onChange={(event) => { setPrice(event) }}
+
                     />
                 </div>
                 <div>
@@ -126,12 +120,11 @@ const CreateBookControl = (props) => {
                         onChange={(event) => { setQuantity(event) }}
                     />
                 </div>
-
                 <div>
-                    <div>Thể loại</div>
+                    <span>Thể loại</span>
                     <Select
-                        style={{ width: "100%" }}
                         value={category}
+                        style={{ width: "100%" }}
                         onChange={(value) => { setCategory(value) }}
                         options={[
                             { value: 'Arts', label: 'Arts' },
@@ -149,41 +142,43 @@ const CreateBookControl = (props) => {
                 </div>
                 <div>
                     <div>Ảnh thumbnail</div>
-                    <div>
-                        <label htmlFor='btnUpload' style={{
-                            display: "block",
-                            width: "fit-content",
-                            marginTop: "15px",
-                            padding: "5px 10px",
-                            background: "orange",
-                            borderRadius: "5px",
-                            cursor: "pointer"
-                        }}>
-                            Upload
-                        </label>
-                        <input
-                            type='file' hidden id='btnUpload'
-                            onChange={(event) => handleOnChangeFile(event)}
-                            onClick={(event) => event.target.value = null}
-                        />
-                    </div>
+                    <input
+                        onChange={(event) => { handleOnChangeFile(event) }}
+                        type="file" hidden id="btnUpload" name="myfile"
+
+                        //fix bug add 1 anh 2 lan
+                        onClick={(event) => { event.target.value = null }}>
+                    </input>
                     {preview &&
-                        <>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "15px",
-                                height: "100px", width: "150px",
-                            }}>
-                                <img style={{ height: "100%", width: "100%", objectFit: "contain" }}
+                        <div>
+                            <div
+                                style={{
+                                    marginTop: '10px',
+                                    marginBottom: '15px',
+                                    height: '30%',
+                                    width: '30%'
+                                }}>
+                                <img
+                                    style={{ height: '100%', width: '100%', objectFit: 'contain' }}
                                     src={preview} />
                             </div>
-                        </>
+                        </div>
                     }
+                    <label htmlFor="btnUpload" style={{
+                        cursor: 'pointer',
+                        background: 'gold',
+                        display: 'block',
+                        marginTop: '15px',
+                        padding: '5px 10px',
+                        width: "fit-content",
+                        borderRadius: '5px'
+                    }}>
+                        Upload Thumbnail
+                    </label>
                 </div>
-
-            </div>
-        </Modal>
+            </Modal>
+        </>
     )
-}
 
-export default CreateBookControl;
+}
+export default CreateBookControl
