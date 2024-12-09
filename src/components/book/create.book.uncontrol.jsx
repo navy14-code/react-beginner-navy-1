@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber, Modal, Select, notification } from "antd";
+import { Form, Input, InputNumber, Modal, Select, message, notification } from "antd";
 import { createBookAPI, handleUploadFile } from "../../services/api.service";
 import { useState } from "react";
 
@@ -6,7 +6,6 @@ const CreateBookUncontrol = (props) => {
     const {
         isCreateOpen, setIsCreateOpen, loadBook
     } = props;
-
     const [form] = Form.useForm();
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -15,216 +14,200 @@ const CreateBookUncontrol = (props) => {
     const handleSubmitBtn = async (values) => {
         if (!selectedFile) {
             notification.error({
-                message: "Error create book",
-                description: "Vui lòng upload ảnh thumbnail"
+                message: "Error",
+                description: "Vui lòng nhập Thumbnail"
             })
             return;
         }
-
-        //step 1: upload file
-        const resUpload = await handleUploadFile(selectedFile, "book");
+        const resUpload = await handleUploadFile(selectedFile, 'book');
         if (resUpload.data) {
-            //success
             const newThumbnail = resUpload.data.fileUploaded;
-            //step 2: create book
             const { mainText, author, price, quantity, category } = values;
-
-            const resBook = await createBookAPI(
-                newThumbnail, mainText, author, price, quantity, category
-            );
-
+            const resBook = await createBookAPI(newThumbnail, mainText, author, price, quantity, category);
             if (resBook.data) {
                 resetAndCloseModal()
                 await loadBook();
                 notification.success({
-                    message: "Create book",
+                    message: "Create book success",
                     description: "Tạo mới book thành công"
                 })
-
-            } else {
+            } else (
                 notification.error({
-                    message: "Error create book",
+                    message: "Create fail",
                     description: JSON.stringify(resBook.message)
                 })
-            }
-        } else {
-            //failed
+            )
+        } else (
             notification.error({
-                message: "Error upload file",
+                message: "Upload fail",
                 description: JSON.stringify(resUpload.message)
             })
-        }
+        )
     }
-
-    const resetAndCloseModal = () => {
-        form.resetFields();
-        setSelectedFile(null);
-        setPreview(null);
-        setIsCreateOpen(false);
-    }
-
     const handleOnChangeFile = (event) => {
         if (!event.target.files || event.target.files.length === 0) {
             setSelectedFile(null);
             setPreview(null);
             return;
         }
-
-        // I've kept this example simple by using the first image instead of multiple
         const file = event.target.files[0];
         if (file) {
             setSelectedFile(file);
             setPreview(URL.createObjectURL(file))
         }
     }
+    const resetAndCloseModal = () => {
+        setIsCreateOpen(false)
+        form.resetFields();
+        setPreview(null);
+        setSelectedFile(null);
+
+    }
+
 
     return (
         <Modal
-            title="Create Book (uncontrolled component)"
+            title='Create Book (uncontrolled)'
             open={isCreateOpen}
-            onOk={() => form.submit()}
-            onCancel={() => resetAndCloseModal()}
+            onOk={() => { form.submit() }}
+            onCancel={() => { resetAndCloseModal() }}
             maskClosable={false}
             okText={"CREATE"}
         >
             <Form
                 form={form}
-                onFinish={handleSubmitBtn}
                 layout="vertical"
+                onFinish={handleSubmitBtn}
             >
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div>
-                        <Form.Item
-                            label="Tiêu đề"
-                            name="mainText"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Tiêu đề không được để trống!',
-                                }
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </div>
-                    <div>
-                        <Form.Item
-                            label="Tác giả"
-                            name="author"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Tác giả không được để trống!',
-                                }
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </div>
-                    <div>
-                        <Form.Item
-                            label="Giá tiền"
-                            name="price"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Giá tiền không được để trống!',
-                                }
-                            ]}
-                        >
-                            <InputNumber
-                                style={{ width: "100%" }}
-                                addonAfter={' đ'}
-                            />
-                        </Form.Item>
-                    </div>
-                    <div>
-                        <Form.Item
-                            label="Số lượng"
-                            name="quantity"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Số lượng không được để trống!',
-                                }
-                            ]}
-                        >
-                            <InputNumber
-                                style={{ width: "100%" }}
-                            />
-                        </Form.Item>
-                    </div>
+                <Form.Item
+                    label="Tiêu đề"
+                    name="mainText"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Không được để trống tiêu đề!',
+                        },
+                    ]}
 
-                    <div>
-                        <Form.Item
-                            label="Thể loại"
-                            name="category"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Thể loại không được để trống!',
-                                }
-                            ]}
-                        >
-                            <Select
-                                style={{ width: "100%" }}
-                                name="category"
-                                options={[
-                                    { value: 'Arts', label: 'Arts' },
-                                    { value: 'Business', label: 'Business' },
-                                    { value: 'Comics', label: 'Comics' },
-                                    { value: 'Cooking', label: 'Cooking' },
-                                    { value: 'Entertainment', label: 'Entertainment' },
-                                    { value: 'History', label: 'History' },
-                                    { value: 'Music', label: 'Music' },
-                                    { value: 'Sports', label: 'Sports' },
-                                    { value: 'Teen', label: 'Teen' },
-                                    { value: 'Travel', label: 'Travel' },
-                                ]}
-                            />
-                        </Form.Item>
+                >
+                    <Input
+                        placeholder="Vui lòng nhập tiêu đề"
+                    />
+                </Form.Item>
+                <Form.Item
+                    label="Tác giả"
+                    name="author"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Không được để trống tác giả!',
+                        },
+                    ]}
 
+                >
+                    <Input
+                        placeholder="Vui lòng nhập tác giả"
+                    />
+                </Form.Item>
+                <Form.Item
+                    label="Giá tiền"
+                    name="price"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Không được để trống giá tiền!',
+                        },
+                    ]}
 
-                    </div>
-                    <div>
-                        <div>Ảnh thumbnail</div>
-                        <div>
-                            <label htmlFor='btnUpload' style={{
-                                display: "block",
-                                width: "fit-content",
-                                marginTop: "15px",
-                                padding: "5px 10px",
-                                background: "orange",
-                                borderRadius: "5px",
-                                cursor: "pointer"
-                            }}>
-                                Upload
-                            </label>
-                            <input
-                                type='file' hidden id='btnUpload'
-                                onChange={(event) => handleOnChangeFile(event)}
-                                onClick={(event) => event.target.value = null}
-                                style={{ display: "none" }}
-                            />
-                        </div>
-                        {preview &&
-                            <>
-                                <div style={{
-                                    marginTop: "10px",
-                                    marginBottom: "15px",
-                                    height: "100px", width: "150px",
-                                }}>
-                                    <img style={{ height: "100%", width: "100%", objectFit: "contain" }}
-                                        src={preview} />
-                                </div>
-                            </>
-                        }
-                    </div>
+                >
+                    <InputNumber
+                        style={{ width: '100%' }}
+                        addonAfter={' đ'}
+                        placeholder="Vui lòng nhập giá tiền"
+                    />
+                </Form.Item>
+                <Form.Item
+                    label="Số lượng"
+                    name="quantity"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Không được để trống số lượng!',
+                        },
+                    ]}
 
-                </div>
+                >
+                    <InputNumber
+                        style={{ width: "100%" }}
+                        placeholder="Vui lòng nhập số lượng"
+                    />
+                </Form.Item>
+                <Form.Item
+                    label="Thể loại"
+                    name="category"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Không được để trống thể loại!',
+                        },
+                    ]}
+
+                >
+                    <Select
+                        options={[
+                            { value: 'Arts', label: 'Arts' },
+                            { value: 'Business', label: 'Business' },
+                            { value: 'Comics', label: 'Comics' },
+                            { value: 'Cooking', label: 'Cooking' },
+                            { value: 'Entertainment', label: 'Entertainment' },
+                            { value: 'History', label: 'History' },
+                            { value: 'Music', label: 'Music' },
+                            { value: 'Sports', label: 'Sports' },
+                            { value: 'Teen', label: 'Teen' },
+                            { value: 'Travel', label: 'Travel' },
+                        ]}
+                    />
+                </Form.Item>
             </Form>
+            <div>
+                <div>Ảnh thumbnail</div>
+                <input
+                    onChange={(event) => { handleOnChangeFile(event) }}
+                    type="file" hidden id="btnUpload"
+                    //fix bug add 1 anh 2 lan
+                    onClick={(event) => { event.target.value = null }}>
+                </input>
+                {preview &&
+                    <div>
+                        <div
+                            style={{
+                                marginTop: '10px',
+                                marginBottom: '15px',
+                                height: '30%',
+                                width: '30%'
+                            }}>
+                            <img
+                                style={{ height: '100%', width: '100%', objectFit: 'contain' }}
+                                src={preview} />
+                        </div>
+                    </div>
+                }
+                <label htmlFor="btnUpload" style={{
+                    cursor: 'pointer',
+                    background: 'gold',
+                    display: 'block',
+                    marginTop: '15px',
+                    padding: '5px 10px',
+                    width: "fit-content",
+                    borderRadius: '5px'
+                }}>
+                    Upload
+                </label>
+            </div>
         </Modal>
     )
+
+
 }
 
 export default CreateBookUncontrol;
